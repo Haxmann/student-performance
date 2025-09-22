@@ -50,7 +50,7 @@ if files:
                 else:
                     students[student] += [int(line['grade'])]
 
-results = [[student, round(sum(grades) / len(grades), 2)] for student, grades in students.items()]
+results = [[student, round(sum(grades) / len(grades), 1)] for student, grades in students.items()]
 results = sorted(results, key = lambda x: (x[1]), reverse=True)
 
 with open(args.report, 'w', newline='', encoding='utf8') as reportfile:
@@ -59,4 +59,4 @@ with open(args.report, 'w', newline='', encoding='utf8') as reportfile:
     output_table.writeheader()
     output_table.writerows([{'student_name': name, 'grade': grade} for name, grade in results])
 
-    print(tabulate(results, headers=headers, tablefmt='grid', showindex=range(1, len(results) + 1)))
+print(tabulate(results, headers=headers, tablefmt='grid', showindex=range(1, len(results) + 1)))
