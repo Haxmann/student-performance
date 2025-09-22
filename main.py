@@ -1,6 +1,7 @@
+"""Main module"""
 import os
 import csv
-import tabulate
+from tabulate import tabulate
 
 FOLDER = "./examples"
 
@@ -22,6 +23,6 @@ if os.path.exists(FOLDER):
                     else:
                         students[student] += [int(line['grade'])]
 
-results = [[student, round(sum(students[student]) / len(students[student]), 1)] for student in students]
+results = [[student, round(sum(grades) / len(grades), 1)] for student, grades in students.items()]
 results = sorted(results, key = lambda x: (x[1]), reverse=True)
-print(tabulate.tabulate(results, headers=['student_name', 'grade'], tablefmt='grid', showindex=True))
+print(tabulate(results, headers=['student_name', 'grade'], tablefmt='grid', showindex=True))
