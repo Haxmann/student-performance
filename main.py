@@ -2,6 +2,7 @@
 import argparse
 import os
 import csv
+import sys
 from tabulate import tabulate
 
 parser = argparse.ArgumentParser(formatter_class = argparse.RawTextHelpFormatter,
@@ -17,13 +18,28 @@ Valid examples:
 """)
 parser.add_argument("-r", "--report", type=str, default='./report.csv',
                      help = "Full path to report file. (default: ./report.csv)")
-args = parser.parse_args()
 
-assert args.files, "A valid path to file or folder must be provided"
+try:
+    args = parser.parse_args()
+    if not args.files:
+        raise ValueError("At least one file or folder must be provided via --files")
+
+    if not args.report.endswith('.csv'):
+        raise ValueError("Report file must have a .csv extension")
+
+    report_dir = os.path.dirname(args.report) or '.'
+    if not os.path.isdir(report_dir):
+        raise ValueError(f"Directory for report file {args.report} does not exist")
+
+except ValueError as e:
+    parser.error(str(e))
+
 paths = {'files': [], 'folders': []}
 
 for path in args.files:
-    assert os.path.exists(path), "A valid path to file or folder must be provided"
+    if not os.path.exists(path):
+        print(f'Warning: Invalid path provided -  "{path}", skipping...')
+        continue
 
     if os.path.isdir(path):
         paths['folders'] += [path]
@@ -41,14 +57,28 @@ if files:
         with open(file, mode='r', encoding='utf8') as csv_file:
             input_table = csv.DictReader(csv_file)
 
+            #if not all(field in [input_table.fieldnames] for field in ['student_name', 'grade']):
+            #    print(f"Warning: Skipping {file} - missing 'student_name' or 'grade' columns")
+            #    continue
+
             for line in input_table:
                 student = line['student_name']
+
+                try:
+                    grade = float(line['grade'])
+                except ValueError:
+                    print(f"Warning: Skipping invalid grade in {file} for {student}")
+                    continue
 
                 if student not in students:
                     students[student] = [int(line['grade'])]
 
                 else:
                     students[student] += [int(line['grade'])]
+
+else:
+    print("Error: No CSV files found in provided paths")
+    sys.exit(1)
 
 results = [[student, round(sum(grades) / len(grades), 1)] for student, grades in students.items()]
 results = sorted(results, key = lambda x: (x[1]), reverse=True)
