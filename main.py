@@ -8,13 +8,15 @@ parser = argparse.ArgumentParser(formatter_class = argparse.RawTextHelpFormatter
                                  prog = "studperf",
                                  usage='%(prog)s [-fr]',
                                  description = "Student Performance Report Tool")
-parser.add_argument("-f", "--files", action='extend', nargs="+", type=str, help = """\
+parser.add_argument("-f", "--files", action='extend', nargs="+", type=str,
+    help = """\
 A file containing grade data, or a folder containing such file(s) (non-recursive).\n
 Valid examples:
 %(prog)s -f file1.csv -f /folder/file2.csv file3.csv
 %(prog)s -f /folder/ file4.csv\n
 """)
-parser.add_argument("-r", "--report", type=str, default='./report.csv', help = "Full path to report file. (default: ./report.csv)")
+parser.add_argument("-r", "--report", type=str, default='./report.csv',
+                     help = "Full path to report file. (default: ./report.csv)")
 args = parser.parse_args()
 
 assert args.files, "A valid path to file or folder must be provided"
@@ -51,10 +53,10 @@ if files:
 results = [[student, round(sum(grades) / len(grades), 2)] for student, grades in students.items()]
 results = sorted(results, key = lambda x: (x[1]), reverse=True)
 
-with open(args.report, 'w', newline='') as reportfile:
+with open(args.report, 'w', newline='', encoding='utf8') as reportfile:
     headers = ['student_name', 'grade']
     output_table = csv.DictWriter(reportfile, fieldnames=headers)
     output_table.writeheader()
-    output_table.writerows([{'student_name': student, 'grade': grade} for student, grade in results])
+    output_table.writerows([{'student_name': name, 'grade': grade} for name, grade in results])
 
     print(tabulate(results, headers=headers, tablefmt='grid', showindex=range(1, len(results) + 1)))
