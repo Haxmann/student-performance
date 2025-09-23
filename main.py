@@ -37,7 +37,7 @@ for path in args.files:
         print(f'Warning: Invalid path provided -  "{path}", skipping...')
         continue
 
-    if not str(os.path).endswith('.csv'):
+    if not path.endswith('.csv'):
         print(f'Report file "{path}" must have a .csv extension, skipping...')
         continue
 
@@ -50,7 +50,7 @@ if paths:
         with open(file, mode='r', encoding='utf8') as csv_file:
             input_table = csv.DictReader(csv_file)
 
-            if not all(field in [input_table.fieldnames] for field in ['student_name', 'grade']):
+            if not all(field in input_table.fieldnames for field in ['student_name', 'grade']): # type: ignore (is not a sequenced str)
                 print(f"Warning: Skipping {file} - missing 'student_name' or 'grade' columns")
                 continue
 
