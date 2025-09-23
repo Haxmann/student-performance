@@ -11,4 +11,5 @@
 Вывод текста: консольная таблица + report.csv.
 
 Пример вывода:
+
 ![output-example](https://raw.githubusercontent.com/Haxmann/student-performance/master/.github/images/output_example.png)
