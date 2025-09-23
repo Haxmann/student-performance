@@ -1,10 +1,12 @@
 """Main module"""
+from typing import Dict, List, Tuple
+
 import argparse
 import os
 import csv
 import sys
+
 from tabulate import tabulate
-from typing import Dict, List, Tuple
 
 def parse_arguments() -> argparse.Namespace:
     """Parse command-line arguments."""
@@ -51,7 +53,7 @@ def collect_files(paths: List[str]) -> List[str]:
             continue
 
         valid_paths.append(path)
-    
+
     return valid_paths
 
 def read_student_data(files: List[str]) -> Dict[str, List[float]]:
@@ -84,16 +86,17 @@ def read_student_data(files: List[str]) -> Dict[str, List[float]]:
                     else:
                         students[student] += [grade]
 
-        return students
-
     else:
         print("Error: No CSV files found in provided paths")
         sys.exit(1)
 
+    return students
+
 def compute_results(students: Dict[str, List[float]]) -> List[Tuple[str, float]]:
     """Compute average grades and sort by performance."""
 
-    results = [[student, round(sum(grades) / len(grades), 1)] for student, grades in students.items()]
+    results = [[student, round(sum(grades) / len(grades), 1)]
+               for student, grades in students.items()]
     return sorted(results, key = lambda x: (x[1]), reverse=True) # type: ignore (all is valid)
 
 def write_report(results: List[Tuple[str, float]], report_path: str) -> None:
