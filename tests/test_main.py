@@ -3,14 +3,14 @@ import os
 import csv
 from unittest.mock import patch
 
+import pytest
+
 from studperf import parse_arguments, \
                     collect_files, \
                     read_student_data, \
                     compute_results, \
                     write_report, \
                     main
-
-import pytest
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), "test_data")
 
