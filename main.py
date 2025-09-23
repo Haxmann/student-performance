@@ -17,7 +17,7 @@ def parse_arguments() -> argparse.Namespace:
                                     description = "Student Performance Report Tool")
     parser.add_argument("-f", "--files", action='extend', nargs="+", type=str,
         help = """\
-    A file containing grade data, or a folder containing such file(s) (non-recursive).\n
+    File(s) containing grade data.\n
     Examples:
     %(prog)s -f file1.csv -f /folder/file2.csv file3.csv\n
     """)
