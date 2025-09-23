@@ -12,4 +12,4 @@
 
 Пример вывода:
 
-![output-example](https://raw.githubusercontent.com/Haxmann/student-performance/master/.github/images/output_example.png)
+![output-example](https://raw.githubusercontent.com/Haxmann/student-performance/master/.github/images/example.png)
