@@ -12,9 +12,8 @@ parser = argparse.ArgumentParser(formatter_class = argparse.RawTextHelpFormatter
 parser.add_argument("-f", "--files", action='extend', nargs="+", type=str,
     help = """\
 A file containing grade data, or a folder containing such file(s) (non-recursive).\n
-Valid examples:
-%(prog)s -f file1.csv -f /folder/file2.csv file3.csv
-%(prog)s -f /folder/ file4.csv\n
+Examples:
+%(prog)s -f file1.csv -f /folder/file2.csv file3.csv\n
 """)
 parser.add_argument("-r", "--report", type=str, default='./report.csv',
                      help = "Full path to report file. (default: ./report.csv)")
@@ -22,10 +21,7 @@ parser.add_argument("-r", "--report", type=str, default='./report.csv',
 try:
     args = parser.parse_args()
     if not args.files:
-        raise ValueError("At least one file or folder must be provided via --files")
-
-    if not args.report.endswith('.csv'):
-        raise ValueError("Report file must have a .csv extension")
+        raise ValueError("At least one file must be provided via --files")
 
     report_dir = os.path.dirname(args.report) or '.'
     if not os.path.isdir(report_dir):
@@ -34,32 +30,29 @@ try:
 except ValueError as e:
     parser.error(str(e))
 
-paths = {'files': [], 'folders': []}
+paths = []
 
 for path in args.files:
     if not os.path.exists(path):
         print(f'Warning: Invalid path provided -  "{path}", skipping...')
         continue
 
-    if os.path.isdir(path):
-        paths['folders'] += [path]
+    if not str(os.path).endswith('.csv'):
+        print(f'Report file "{path}" must have a .csv extension, skipping...')
+        continue
 
-    else:
-        paths['files'] += [path]
+    paths.append(path)
 
-files = paths['files'] + [os.path.join(dirname, filename) for dirname in paths['folders']
-                          for filename in os.listdir(dirname) if filename.endswith('.csv')]
-
-if files:
+if paths:
     students = {}
 
-    for file in files:
+    for file in paths:
         with open(file, mode='r', encoding='utf8') as csv_file:
             input_table = csv.DictReader(csv_file)
 
-            #if not all(field in [input_table.fieldnames] for field in ['student_name', 'grade']):
-            #    print(f"Warning: Skipping {file} - missing 'student_name' or 'grade' columns")
-            #    continue
+            if not all(field in [input_table.fieldnames] for field in ['student_name', 'grade']):
+                print(f"Warning: Skipping {file} - missing 'student_name' or 'grade' columns")
+                continue
 
             for line in input_table:
                 student = line['student_name']
