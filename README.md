@@ -7,7 +7,7 @@
 
 ## Примеры использования
 Запуск с файлами:
-`python studperf.py -f test_file1.csv -f test_file2.csv -r /вывод/report.csv`
+`python studperf.py -f test_file1.csv -f test_file2.csv -r /output/report.csv`
 Вывод текста: консольная таблица + report.csv.
 
 Пример вывода:
