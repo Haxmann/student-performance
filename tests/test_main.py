@@ -1,14 +1,14 @@
 """Testing module for studperf.py"""
+import os
+import csv
+from unittest.mock import patch
+
 from studperf import parse_arguments, \
                     collect_files, \
                     read_student_data, \
                     compute_results, \
                     write_report, \
                     main
-
-import os
-import csv
-from unittest.mock import patch
 
 import pytest
 
