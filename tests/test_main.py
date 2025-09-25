@@ -42,7 +42,10 @@ def test_collect_files_valid_file(tmp_path):
     """Testing if input csv was correctly handled"""
 
     csv_path = os.path.join(tmp_path, "test.csv")
-    open(csv_path, 'a').close()
+
+    with open(csv_path, 'a', encoding='utf8') as empty_file:
+        empty_file.close()
+
     files = collect_files([str(csv_path)])
     assert files == [str(csv_path)]
 
@@ -58,7 +61,9 @@ def test_collect_files_non_csv(tmp_path):
     """Testing if non-csv file was supplied"""
 
     txt_path = os.path.join(tmp_path, "test.txt")
-    open(txt_path, 'a').close()
+
+    with open(txt_path, 'a', encoding='utf8') as empty_file:
+        empty_file.close()
 
     with patch('builtins.print') as mocked_print:
         files = collect_files([str(txt_path)])
@@ -97,7 +102,7 @@ def test_read_student_data_invalid_grade():
 def test_read_student_data_no_valid_files():
     """Testing for case where no valid csv was supplied"""
 
-    with patch('builtins.print') as mocked_print, patch('sys.exit') as mocked_exit:
+    with patch('builtins.print') as mocked_print:
         students = read_student_data([])
         assert not students
         mocked_print.assert_called_with("Error: No CSV files found in provided paths")
