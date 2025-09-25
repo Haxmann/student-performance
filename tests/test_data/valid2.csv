@@ -1,6 +1,4 @@
 student_name,subject,teacher_name,date,grade
-Alice,Math,Teacher1,2023-01-01,4
-Bob,Science,Teacher2,2023-01-02,3
 Alice,English,Teacher3,2023-01-03,5
 Charlie,History,Teacher4,2023-01-04,4
 Bob,Geography,Teacher5,2023-01-05,2

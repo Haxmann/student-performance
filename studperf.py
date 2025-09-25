@@ -45,7 +45,7 @@ def collect_files(paths: List[str]) -> List[str]:
 
     for path in paths:
         if not os.path.exists(path):
-            print(f'Warning: Invalid path provided -  "{path}", skipping...')
+            print(f'Warning: Invalid path - "{path}", skipping...')
             continue
 
         if not path.endswith('.csv'):
@@ -59,9 +59,14 @@ def collect_files(paths: List[str]) -> List[str]:
 def read_student_data(files: List[str]) -> Dict[str, List[float]]:
     """Read student grades from CSV files."""
 
-    if files:
-        students = {}
+    students = {}
 
+    if not files:
+        print("Error: No CSV files found in provided paths")
+        sys.exit(1)
+        return None
+
+    else:
         for file in files:
             with open(file, mode='r', encoding='utf8') as csv_file:
                 input_table = csv.DictReader(csv_file)
@@ -86,11 +91,7 @@ def read_student_data(files: List[str]) -> Dict[str, List[float]]:
                     else:
                         students[student] += [grade]
 
-    else:
-        print("Error: No CSV files found in provided paths")
-        sys.exit(1)
-
-    return students
+        return students
 
 def compute_results(students: Dict[str, List[float]]) -> List[Tuple[str, float]]:
     """Compute average grades and sort by performance."""
