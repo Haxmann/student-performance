@@ -98,9 +98,9 @@ def test_read_student_data_no_valid_files():
     """Testing for case where no valid csv was supplied"""
 
     with patch('builtins.print') as mocked_print, patch('sys.exit') as mocked_exit:
-        read_student_data([])
+        students = read_student_data([])
+        assert not students
         mocked_print.assert_called_with("Error: No CSV files found in provided paths")
-        mocked_exit.assert_called_with(1)
 
 def test_compute_results():
     """Testing for handling average grades"""
@@ -126,7 +126,7 @@ def test_write_report(tmp_path):
 def test_main(tmp_path):
     """Testing the main module from start to finish"""
 
-    csv_path = os.path.join(DATA_DIR, "valid.csv")
+    csv_path = os.path.join(DATA_DIR, "valid1.csv")
     report_path = os.path.join(tmp_path, "report.csv")
 
     with patch('sys.argv', ['studperf.py', '-f', csv_path, '-r', str(report_path)]), \
@@ -135,5 +135,5 @@ def test_main(tmp_path):
 
     with open(report_path, 'r', encoding='utf8') as f:
         reader = csv.DictReader(f)
-        assert list(reader) == [{'student_name': 'Alice', 'grade': '5.0'},
+        assert list(reader) == [{'student_name': 'Alice', 'grade': '4.0'},
                                 {'student_name': 'Bob', 'grade': '3.0'}]
