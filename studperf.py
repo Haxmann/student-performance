@@ -62,9 +62,7 @@ def read_student_data(files: List[str]) -> Dict[str, List[float]]:
     students = {}
 
     if not files:
-        print("Error: No CSV files found in provided paths")
-        sys.exit(1)
-        return None
+        return {}
 
     else:
         for file in files:
@@ -73,7 +71,7 @@ def read_student_data(files: List[str]) -> Dict[str, List[float]]:
 
                 if not all(field in input_table.fieldnames # type: ignore (not a sequenced str)
                         for field in ['student_name', 'grade']):
-                    print(f"Warning: Skipping {file} - missing 'student_name' or 'grade' columns")
+                    print(f'Warning: Skipping {file} - missing "student_name" or "grade" columns')
                     continue
 
                 for line in input_table:
@@ -116,6 +114,11 @@ def main() -> None:
     args = parse_arguments()
     files = collect_files(args.files)
     students = read_student_data(files)
+
+    if not students:
+        print("Error: No CSV files found in provided paths")
+        sys.exit(1)
+
     results = compute_results(students)
     write_report(results, args.report)
 

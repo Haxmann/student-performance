@@ -32,7 +32,7 @@ def test_parse_arguments_no_files():
 def test_parse_arguments_invalid_report_dir(tmp_path):
     """Testing the case for invalid report path"""
 
-    invalid_report = os.path.join(tmp_path, '/nonexistent/report.csv')
+    invalid_report = os.path.join(tmp_path, 'nonexistent/report.csv')
 
     with patch('sys.argv', ['studperf.py', '-f', 'file1.csv', '-r', invalid_report]):
         with pytest.raises(SystemExit):
@@ -41,7 +41,7 @@ def test_parse_arguments_invalid_report_dir(tmp_path):
 def test_collect_files_valid_file(tmp_path):
     """Testing if input csv was correctly handled"""
 
-    csv_path = os.path.join(tmp_path, "/test.csv")
+    csv_path = os.path.join(tmp_path, "test.csv")
     open(csv_path, 'a').close()
     files = collect_files([str(csv_path)])
     assert files == [str(csv_path)]
@@ -57,7 +57,7 @@ def test_collect_files_invalid_path():
 def test_collect_files_non_csv(tmp_path):
     """Testing if non-csv file was supplied"""
 
-    txt_path = os.path.join(tmp_path, "/test.txt")
+    txt_path = os.path.join(tmp_path, "test.txt")
     open(txt_path, 'a').close()
 
     with patch('builtins.print') as mocked_print:
@@ -91,8 +91,8 @@ def test_read_student_data_invalid_grade():
 
     with patch('builtins.print') as mocked_print:
         students = read_student_data([csv_path])
-        assert not students #-----------------------------------------------
         mocked_print.assert_called_with(f"Warning: Skipping invalid grade in {csv_path} for Alice")
+        assert students == {'Frank': [4.0]}
 
 def test_read_student_data_no_valid_files():
     """Testing for case where no valid csv was supplied"""
@@ -113,7 +113,7 @@ def test_write_report(tmp_path):
     """Testing if resulted report was written correctly"""
 
     results = [['Alice', 4.5], ['Bob', 3.0]]
-    report_path = os.path.join(tmp_path, "/report.csv")
+    report_path = os.path.join(tmp_path, "report.csv")
 
     with patch('builtins.print'):
         write_report(results, str(report_path)) # type: ignore
@@ -127,7 +127,7 @@ def test_main(tmp_path):
     """Testing the main module from start to finish"""
 
     csv_path = os.path.join(DATA_DIR, "valid.csv")
-    report_path = os.path.join(tmp_path, "/report.csv")
+    report_path = os.path.join(tmp_path, "report.csv")
 
     with patch('sys.argv', ['studperf.py', '-f', csv_path, '-r', str(report_path)]), \
         patch('builtins.print'):
