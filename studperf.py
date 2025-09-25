@@ -4,7 +4,6 @@ from typing import Dict, List, Tuple
 import argparse
 import os
 import csv
-import sys
 
 from tabulate import tabulate
 
@@ -45,7 +44,7 @@ def collect_files(paths: List[str]) -> List[str]:
 
     for path in paths:
         if not os.path.exists(path):
-            print(f'Warning: Invalid path provided -  "{path}", skipping...')
+            print(f'Warning: Invalid path - "{path}", skipping...')
             continue
 
         if not path.endswith('.csv'):
@@ -59,16 +58,19 @@ def collect_files(paths: List[str]) -> List[str]:
 def read_student_data(files: List[str]) -> Dict[str, List[float]]:
     """Read student grades from CSV files."""
 
-    if files:
-        students = {}
+    students = {}
 
+    if not files:
+        print("Error: No CSV files found in provided paths")
+
+    else:
         for file in files:
             with open(file, mode='r', encoding='utf8') as csv_file:
                 input_table = csv.DictReader(csv_file)
 
                 if not all(field in input_table.fieldnames # type: ignore (not a sequenced str)
                         for field in ['student_name', 'grade']):
-                    print(f"Warning: Skipping {file} - missing 'student_name' or 'grade' columns")
+                    print(f'Warning: Skipping {file} - missing "student_name" or "grade" columns')
                     continue
 
                 for line in input_table:
@@ -85,10 +87,6 @@ def read_student_data(files: List[str]) -> Dict[str, List[float]]:
 
                     else:
                         students[student] += [grade]
-
-    else:
-        print("Error: No CSV files found in provided paths")
-        sys.exit(1)
 
     return students
 
