@@ -62,7 +62,6 @@ def read_student_data(files: List[str]) -> Dict[str, List[float]]:
 
     if not files:
         print("Error: No CSV files found in provided paths")
-        return {}
 
     else:
         for file in files:
@@ -89,7 +88,7 @@ def read_student_data(files: List[str]) -> Dict[str, List[float]]:
                     else:
                         students[student] += [grade]
 
-        return students
+    return students
 
 def compute_results(students: Dict[str, List[float]]) -> List[Tuple[str, float]]:
     """Compute average grades and sort by performance."""
