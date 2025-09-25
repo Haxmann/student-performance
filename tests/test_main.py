@@ -91,7 +91,7 @@ def test_read_student_data_invalid_grade():
 
     with patch('builtins.print') as mocked_print:
         students = read_student_data([csv_path])
-        mocked_print.assert_called_with(f"Warning: Skipping invalid grade in {csv_path} for Alice")
+        mocked_print.assert_called_with(f"Warning: Skipping invalid grade in {csv_path} for Eve")
         assert students == {'Frank': [4.0]}
 
 def test_read_student_data_no_valid_files():

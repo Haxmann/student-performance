@@ -4,7 +4,6 @@ from typing import Dict, List, Tuple
 import argparse
 import os
 import csv
-import sys
 
 from tabulate import tabulate
 
@@ -62,6 +61,7 @@ def read_student_data(files: List[str]) -> Dict[str, List[float]]:
     students = {}
 
     if not files:
+        print("Error: No CSV files found in provided paths")
         return {}
 
     else:
@@ -114,11 +114,6 @@ def main() -> None:
     args = parse_arguments()
     files = collect_files(args.files)
     students = read_student_data(files)
-
-    if not students:
-        print("Error: No CSV files found in provided paths")
-        sys.exit(1)
-
     results = compute_results(students)
     write_report(results, args.report)
 
