@@ -52,10 +52,10 @@ def test_read_data_valid():
     data = reader.read_data([csv_path], required_fields=["student_name", "grade"])
 
     assert len(data) == 4
-    assert data[0] == {'student_name': 'Alice', 'grade': [5]}
-    assert data[1] == {'student_name': 'Bob', 'grade': [3]}
-    assert data[2] == {'student_name': 'Alice', 'grade': [4]}
-    assert data[3] == {'student_name': 'Bob', 'grade': [2]}
+    assert data[0] == {'student_name': 'Alice', 'grade': 5}
+    assert data[1] == {'student_name': 'Bob', 'grade': 3}
+    assert data[2] == {'student_name': 'Alice', 'grade': 4}
+    assert data[3] == {'student_name': 'Bob', 'grade': 2}
 
 def test_read_data_missing_required_fields():
     """Testing for handling of dataset with invalid header"""

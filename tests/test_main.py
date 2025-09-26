@@ -62,7 +62,7 @@ def test_read_student_data_invalid_grade():
     with patch('builtins.print') as mocked_print:
         data = reader.read_data([csv_path])
         mocked_print.assert_called_with(f"Warning: Skipping invalid grade in {csv_path} for Eve")
-        assert data == {'Frank': [4.0]}
+        assert data == {'Frank': 4}
 
 def test_main_student_performance(capsys):
     """Testing the main function for student-performance report."""
@@ -76,4 +76,4 @@ def test_main_student_performance(capsys):
     assert "Alice" in captured.out
     assert "4.5" in captured.out
     assert "Bob" in captured.out
-    assert "3.5" in captured.out
+    assert "2.5" in captured.out

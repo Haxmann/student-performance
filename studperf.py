@@ -1,4 +1,5 @@
 """Main module"""
+import os
 import argparse
 
 from .data_reader import DataReader
@@ -34,7 +35,19 @@ Examples:
         help="Type of report to generate (e.g., student-performance, teacher-performance (WIP), subject-performance(WIP))",
     )
 
-    return parser.parse_args()
+    try:
+        args = parser.parse_args()
+        if not args.files:
+            raise ValueError("At least one file must be provided via --files")
+
+        report_dir = os.path.dirname(args.report) or '.'
+        if not os.path.isdir(report_dir):
+            raise ValueError(f"Directory for report file {args.report} does not exist")
+
+    except ValueError as e:
+        parser.error(str(e))
+
+    return args
 
 def get_report_generator(report_type: str) -> BaseReport:
     """Factory to get the appropriate report generator."""
