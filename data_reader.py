@@ -48,6 +48,13 @@ class DataReader:
                         continue
 
                     for line in input_table:
+                        try:
+                            grade = float(line['grade'])
+
+                        except ValueError:
+                            print(f"Warning: Skipping invalid grade in {file} for {line['student']}")
+                            continue
+
                         students.append(dict(line))
 
         return students

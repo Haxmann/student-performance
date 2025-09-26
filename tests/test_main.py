@@ -13,10 +13,10 @@ DATA_DIR = os.path.join(os.path.dirname(__file__), "test_data")
 def test_parse_arguments_valid():
     """Testing the validity of supplied arguments."""
 
-    with patch('sys.argv', ['studperf.py', '-f', 'file1.csv', '-r', 'report.csv']):
+    with patch('sys.argv', ['studperf.py', '-f', 'file1.csv', '-r', 'student-performance']):
         args = parse_arguments()
         assert args.files == ['file1.csv']
-        assert args.report == 'report.csv'
+        assert args.report == 'student-performance'
 
 def test_parse_arguments_no_files():
     """Testing the case w/o input files"""
