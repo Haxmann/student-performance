@@ -1,9 +1,8 @@
 """Main module"""
 import argparse
-from typing import List
 
-from data_reader import DataReader
-from reports import BaseReport, StudentPerformanceReport, TeacherPerformanceReport, SubjectPerformanceReport
+from .data_reader import DataReader
+from .reports import BaseReport, StudentPerformanceReport, TeacherPerformanceReport, SubjectPerformanceReport
 
 def parse_arguments() -> argparse.Namespace:
     """Parse command-line arguments."""
