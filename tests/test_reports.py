@@ -3,7 +3,7 @@ from typing import List, Dict, Any
 
 from ..reports import StudentPerformanceReport, TeacherPerformanceReport, SubjectPerformanceReport
 
-def test_student_performance_report():
+def test_student_performance_report(capsys):
     """Test student performance report generation."""
 
     data: List[Dict[str, Any]] = [
@@ -17,10 +17,11 @@ def test_student_performance_report():
     report = generator.generate(data)
     print(report)  # To capture output if needed, but since generate returns string
 
-    assert "Alice" in report
-    assert "4.5" in report
-    assert "Bob" in report
-    assert "2.5" in report
+    captured = capsys.readouterr()
+    assert "Alice" in captured.out
+    assert "4.5" in captured.out
+    assert "Bob" in captured.out
+    assert "2.5" in captured.out
 
 '''
 def test_teacher_performance_report():
