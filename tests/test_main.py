@@ -5,8 +5,8 @@ from unittest.mock import patch
 import pytest
 
 from ..studperf import parse_arguments, get_report_generator, main
-from data_reader import DataReader
-from reports import StudentPerformanceReport
+from ..data_reader import DataReader
+from ..reports import StudentPerformanceReport
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), "test_data")
 
