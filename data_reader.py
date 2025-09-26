@@ -24,7 +24,7 @@ class DataReader:
             valid_paths.append(path)
 
         return valid_paths
-    
+
     def read_data(self, files: List[str], required_fields: List[str] = []) -> List[Dict[str, Any]]:
         """Read student grades from CSV files."""
 

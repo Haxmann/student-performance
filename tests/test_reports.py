@@ -1,8 +1,9 @@
+"""Testing module for test_reports.py"""
 from typing import List, Dict, Any
 
 from reports import StudentPerformanceReport, TeacherPerformanceReport, SubjectPerformanceReport
 
-def test_student_performance_report(capsys):
+def test_student_performance_report():
     """Test student performance report generation."""
 
     data: List[Dict[str, Any]] = [
@@ -21,7 +22,7 @@ def test_student_performance_report(capsys):
     assert "Bob" in report
     assert "3.0" in report
 
-def test_teacher_performance_report(capsys):
+def test_teacher_performance_report():
     """Test teacher performance report generation."""
 
     data: List[Dict[str, Any]] = [
@@ -40,7 +41,7 @@ def test_teacher_performance_report(capsys):
     assert "Ms. Johnson" in report
     assert "3.0" in report
 
-def test_subject_performance_report(capsys):
+def test_subject_performance_report():
     """Test subject performance report generation."""
 
     data: List[Dict[str, Any]] = [

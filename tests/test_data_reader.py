@@ -1,3 +1,4 @@
+"""Testing module for reader.py"""
 import os
 from unittest.mock import patch
 
