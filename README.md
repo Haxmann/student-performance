@@ -16,4 +16,4 @@
 
 
 Результаты покрытия тестами:
-[![Codecov](https://codecov.io/gh/Haxmann/student_performance/branch/main/graph/badge.svg?token=ВАШ_ТОКЕН)](https://codecov.io/gh/Haxmann/student_performance)
+[![Codecov](https://codecov.io/gh/Haxmann/student_performance/branch/main/graph/badge.svg?token=${{ secrets.CODECOV_TOKEN }})](https://codecov.io/gh/Haxmann/student_performance)
