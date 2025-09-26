@@ -2,7 +2,7 @@
 import os
 from unittest.mock import patch
 
-from data_reader import DataReader
+from ..data_reader import DataReader
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), "test_data")
 

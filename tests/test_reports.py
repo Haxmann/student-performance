@@ -1,7 +1,7 @@
 """Testing module for test_reports.py"""
 from typing import List, Dict, Any
 
-from reports import StudentPerformanceReport, TeacherPerformanceReport, SubjectPerformanceReport
+from ..reports import StudentPerformanceReport, TeacherPerformanceReport, SubjectPerformanceReport
 
 def test_student_performance_report():
     """Test student performance report generation."""
