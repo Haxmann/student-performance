@@ -5,7 +5,7 @@ from unittest.mock import patch
 
 import pytest
 
-from studperf import parse_arguments, \
+from main import parse_arguments, \
                     collect_files, \
                     read_student_data, \
                     compute_results, \
