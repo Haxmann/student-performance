@@ -4,7 +4,7 @@ from unittest.mock import patch
 
 import pytest
 
-from studperf import parse_arguments, get_report_generator, main
+from ..studperf import parse_arguments, get_report_generator, main
 from data_reader import DataReader
 from reports import StudentPerformanceReport
 
