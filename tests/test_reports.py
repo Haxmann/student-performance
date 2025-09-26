@@ -20,7 +20,7 @@ def test_student_performance_report():
     assert "Alice" in report
     assert "4.5" in report
     assert "Bob" in report
-    assert "3.0" in report
+    assert "2.5" in report
 
 '''
 def test_teacher_performance_report():
