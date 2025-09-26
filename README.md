@@ -13,3 +13,7 @@
 Пример вывода:
 
 ![output-example](https://raw.githubusercontent.com/Haxmann/student-performance/master/.github/images/example.png)
+
+
+Результаты покрытия тестами:
+[![Codecov](https://codecov.io/gh/Haxmann/student_performance/branch/main/graph/badge.svg?token=ВАШ_ТОКЕН)](https://codecov.io/gh/Haxmann/student_performance)
