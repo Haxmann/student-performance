@@ -14,6 +14,7 @@ def parse_arguments() -> argparse.Namespace:
     )
 
     parser.add_argument(
+        "-f",
         "--files",
         action="extend",
         nargs="+",
@@ -26,6 +27,7 @@ Examples:
     )
 
     parser.add_argument(
+        "-r",
         "--report",
         type=str,
         required=True,

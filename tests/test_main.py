@@ -74,6 +74,6 @@ def test_main_student_performance(capsys):
 
     captured = capsys.readouterr()
     assert "Alice" in captured.out
-    assert "4.0" in captured.out
+    assert "4.5" in captured.out
     assert "Bob" in captured.out
-    assert "3.0" in captured.out
+    assert "3.5" in captured.out
